@@ -76,8 +76,10 @@ class Joox(object):
     def createPlaylist(self, playlistName):
         playlistName = base64.b64encode(
             bytes(playlistName, "utf-8")).decode("utf-8")
+        
         payload = dict(channel_id=1, from_type=3, items=[
                        dict(gt=0, gl="", mv=0, dv=0, fn=playlistName)])
+        
         r = self._post(self.prefix + "/web_fav_add_dir", payload=payload)
         if r.status_code != 200:
             raise("Failed to create playlist request.")
@@ -86,8 +88,10 @@ class Joox(object):
     def removeMyPlaylist(self, myPlaylistId):
         getMyplaylist = self.getMyPlaylist(myPlaylistId)
         dv = getMyplaylist["detail_ver"]
+        
         payload = dict(
             items=[dict(gt=myPlaylistId, gl="", mv=dv, dv=dv, fn="")])
+        
         r = self._post(self.prefix + "/web_fav_del_dir", payload=payload)
         if r.status_code != 200:
             raise("Failed to remove my playlist request.")
@@ -95,11 +99,11 @@ class Joox(object):
 
     def addTracksToMyPlaylist(self, songId, myPlaylistId):
         getMyplaylist = self.getMyPlaylist(myPlaylistId)
-        pprint(getMyplaylist)
         dv = getMyplaylist["detail_ver"]
 
         payload = dict(
             items=[dict(gt=myPlaylistId, gl=songId, mv=dv, dv=dv, fn="")])
+        
         r = self._post(self.prefix + "/web_fav_add_song", payload=payload)
         if r.status_code != 200:
             raise("Failed to add track to my playlist request.")
@@ -108,8 +112,10 @@ class Joox(object):
     def removeTracksFromMyPlaylist(self, songId, myPlaylistId):
         getMyplaylist = self.getMyPlaylist(myPlaylistId)
         dv = getMyplaylist["detail_ver"]
+        
         payload = dict(
             items=[dict(gt=myPlaylistId, gl=songId, mv=dv, dv=dv, fn="")])
+        
         r = self._post(self.prefix + "/web_fav_del_song", payload=payload)
         if r.status_code != 200:
             raise("Failed to remove track to my playlist request.")
@@ -210,7 +216,6 @@ class Joox(object):
         return json.loads(r.text)
 
     def getArtistCategory(self):
-        params = self.defaultParams
         r = self._get(self.prefix + "/web_singer_category", params=params)
         if r.status_code != 200:
             raise("Failed to get artist category request.")
