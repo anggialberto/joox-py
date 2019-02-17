@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from .utils import encryptPassword
-from pprint import pprint
 
 import requests
 import base64
