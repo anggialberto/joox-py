@@ -4,7 +4,6 @@ from datetime import datetime
 import hashlib
 import json
 
-
 def encryptPassword(password):
     md5 = hashlib.md5()
     old_password = password.encode('utf-8')
