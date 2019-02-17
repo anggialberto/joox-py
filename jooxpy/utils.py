@@ -12,11 +12,9 @@ def encryptPassword(password):
     new_password = md5.hexdigest()
     return new_password
 
-
 def parseJSONP(data_jsonp):
     data_json = data_jsonp.split('(')[1].strip(')')
     return data_json
-
 
 def log(text):
     print("[%s] %s" % (str(datetime.now()), text))
